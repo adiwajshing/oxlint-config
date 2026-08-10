@@ -1,14 +1,17 @@
 # Oxlint Config
 
-General Typescript lint rules I use, powered by [oxlint](https://oxc.rs).
+General Typescript lint and format rules I use, powered by
+[oxlint](https://oxc.rs) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
 
 To use in your project:
+
 ```
-yarn add -D git+https://github.com/adiwajshing/eslint-config oxlint
+yarn add -D git+https://github.com/adiwajshing/eslint-config oxlint oxfmt
 ```
 
 Then create an `oxlint.config.ts`:
-``` ts
+
+```ts
 import { defineConfig } from 'oxlint'
 import config from '@adiwajshing/eslint-config'
 
@@ -17,22 +20,25 @@ export default defineConfig({
 	options: {
 		// required if you use type-aware rules (e.g. no-misused-promises);
 		// also requires the `oxlint-tsgolint` package
-		typeAware: true
-	}
+		typeAware: true,
+	},
 })
 ```
 
-Run with `npx oxlint` / `npx oxlint --fix`.
+Run `npx oxlint` to lint and `npx oxfmt .` to format. The package scripts
+combine both: `npm run lint` checks lint and formatting, and `npm run lint:fix`
+applies available fixes and formats files.
+
+Oxfmt does not support config `extends`. To use this package's formatter
+configuration, point Oxfmt at it from a consuming project:
+
+```
+oxfmt -c ./node_modules/@adiwajshing/eslint-config/oxfmt.config.ts .
+```
 
 ## Notes
 
-- Most rules run natively in oxlint (fast, Rust-based). A handful of rules
-  with no native oxlint equivalent are loaded as ESLint-compatible JS
-  plugins (alpha oxlint feature): `@stylistic/eslint-plugin`,
-  `eslint-plugin-simple-import-sort`, `eslint-plugin-import-newlines`, and
-  a small local `extras` plugin (`oxlint-plugin-extras.js`) that ports
-  `camelcase`, `unicorn/no-for-loop`, and a custom TS-enum-declaration ban
-  from ESLint core / eslint-plugin-unicorn, since none of those are ported
-  to oxlint.
-- ESLint itself is not run directly; it's only a runtime dependency of the
-  JS plugins above.
+- Oxlint runs only native rules. Oxfmt handles formatting and import sorting.
+- `oxfmt.config.ts` uses tabs, 80-character line width, single quotes, no
+  semicolons, LF line endings, one JSX attribute per line, and the configured
+  React/project import grouping.

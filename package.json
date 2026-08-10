@@ -1,28 +1,26 @@
 {
-  "name": "@adiwajshing/eslint-config",
-  "version": "3.0.0",
-  "main": "oxlint.config.ts",
-  "type": "module",
-  "files": [
-    "oxlint.config.ts",
-    "oxlint-plugin-extras.js"
-  ],
-  "scripts": {
-    "lint": "oxlint",
-    "lint:fix": "npm run lint -- --fix"
-  },
-  "dependencies": {
-    "@stylistic/eslint-plugin": "^5.10.0",
-    "eslint": "^10.0.0",
-    "eslint-plugin-import-newlines": "^2.0.0",
-    "eslint-plugin-simple-import-sort": "^13.0.0"
-  },
-  "peerDependencies": {
-    "oxlint": "*"
-  },
-  "devDependencies": {
-    "oxlint": "^1.77.0",
-    "oxlint-tsgolint": "^7.0.2001",
-    "typescript": "^7.0.2"
-  }
+	"name": "@adiwajshing/eslint-config",
+	"version": "3.0.0",
+	"files": [
+		"oxlint.config.ts",
+		"oxfmt.config.ts"
+	],
+	"type": "module",
+	"main": "oxlint.config.ts",
+	"scripts": {
+		"format": "oxfmt .",
+		"format:check": "oxfmt --check .",
+		"lint": "oxlint && npm run format:check",
+		"lint:fix": "oxlint --fix && npm run format"
+	},
+	"devDependencies": {
+		"oxfmt": "^0.62.0",
+		"oxlint": "^1.77.0",
+		"oxlint-tsgolint": "^7.0.2001",
+		"typescript": "^7.0.2"
+	},
+	"peerDependencies": {
+		"oxfmt": "*",
+		"oxlint": "*"
+	}
 }
