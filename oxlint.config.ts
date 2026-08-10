@@ -1,63 +1,57 @@
-import stylistic from '@stylistic/eslint-plugin'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
-import { defineConfig } from 'eslint/config'
-import newlines	from 'eslint-plugin-import-newlines'
-import simpleImportSort from 'eslint-plugin-simple-import-sort'
-import unicorn from 'eslint-plugin-unicorn'
-import globals from 'globals'
+import { defineConfig } from 'oxlint'
+import { fileURLToPath } from 'node:url'
+
+const extrasPath = fileURLToPath(new URL('./oxlint-plugin-extras.js', import.meta.url))
 
 export default defineConfig({
-	plugins: {
-		'@typescript-eslint': typescriptEslint,
-		'simple-import-sort': simpleImportSort,
-		unicorn,
-		'@stylistic': stylistic,
-		newlines
+	plugins: ['typescript', 'unicorn', 'oxc'],
+
+	jsPlugins: [
+		'@stylistic/eslint-plugin',
+		'eslint-plugin-simple-import-sort',
+		{ name: 'newlines', specifier: 'eslint-plugin-import-newlines' },
+		{ name: 'extras', specifier: extrasPath }
+	],
+
+	env: {
+		browser: true
 	},
 
-	languageOptions: {
-		globals: {
-			...globals.browser,
-		},
-		parser: tsParser,
-		ecmaVersion: 5,
-		sourceType: 'module',
-		parserOptions: {
-			projectService: true,
-			tsconfigRootDir: import.meta.dirname,
-		}
+	options: {
+		// required for typescript/no-misused-promises, a type-aware rule
+		typeAware: true
 	},
 
 	rules: {
-		'unicorn/no-for-each': ['error'],
+		'unicorn/no-array-for-each': 'error',
+		'unicorn/empty-brace-spaces': 'error',
+		'typescript/prefer-for-of': 'error',
 
 		'unicorn/consistent-function-scoping': ['error', {
-			checkArrowFunctions: false,
+			checkArrowFunctions: false
 		}],
 
 		'unicorn/no-await-expression-member': 'error',
-		'unicorn/no-for-loop': 'error',
 		'unicorn/no-lonely-if': 'error',
 		'unicorn/no-object-as-default-parameter': 'error',
 		'unicorn/prefer-array-find': 'error',
 		'unicorn/prefer-array-some': 'error',
 		'max-depth': ['error', 4],
 
-		'@typescript-eslint/no-misused-promises': ['error', {
+		'typescript/no-misused-promises': ['error', {
 			checksSpreads: true,
 			checksVoidReturn: false,
-			checksConditionals: true,
+			checksConditionals: true
 		}],
 
-		'@typescript-eslint/prefer-optional-chain': ['error'],
-		'@typescript-eslint/no-unnecessary-type-assertion': ['error'],
-		'@typescript-eslint/no-unnecessary-type-constraint': ['error'],
-		'@typescript-eslint/no-redundant-type-constituents': ['error'],
-		'@typescript-eslint/no-inferrable-types': ['error'],
+		'typescript/prefer-optional-chain': ['error'],
+		'typescript/no-unnecessary-type-assertion': ['error'],
+		'typescript/no-unnecessary-type-constraint': ['error'],
+		'typescript/no-redundant-type-constituents': ['error'],
+		'typescript/no-inferrable-types': ['error'],
 
-		'@typescript-eslint/no-explicit-any': ['warn', {
-			ignoreRestArgs: true,
+		'typescript/no-explicit-any': ['warn', {
+			ignoreRestArgs: true
 		}],
 
 		'@stylistic/type-annotation-spacing': ['error'],
@@ -66,29 +60,29 @@ export default defineConfig({
 		'@stylistic/member-delimiter-style': ['error', {
 			multiline: {
 				delimiter: 'none',
-				requireLast: false,
+				requireLast: false
 			},
 
 			singleline: {
 				delimiter: 'comma',
-				requireLast: false,
-			},
+				requireLast: false
+			}
 		}],
 
-		'@typescript-eslint/no-unused-vars': ['error'],
-		'@typescript-eslint/consistent-type-imports': ['error'],
+		'typescript/no-unused-vars': ['error'],
+		'typescript/consistent-type-imports': ['error'],
 
-		camelcase: ['error', {
+		'typescript/no-non-null-asserted-optional-chain': ['off'],
+		'no-extra-boolean-cast': ['error'],
+
+		'extras/camelcase': ['error', {
 			ignoreGlobals: true,
-			ignoreImports: true,
+			ignoreImports: true
 		}],
 
 		'no-unneeded-ternary': ['error'],
 
-		'no-restricted-syntax': ['error', {
-			selector: 'TSEnumDeclaration',
-			message: "Don't declare enums, use literals instead",
-		}],
+		'extras/no-enum-declaration': ['error'],
 
 		'no-constant-condition': ['error'],
 		'no-constant-binary-expression': 'error',
@@ -98,7 +92,7 @@ export default defineConfig({
 		'@stylistic/indent': ['error', 'tab'],
 
 		'@stylistic/quotes': [2, 'single', {
-			avoidEscape: true,
+			avoidEscape: true
 		}],
 
 		'@stylistic/object-curly-spacing': ['error', 'always'],
@@ -112,42 +106,42 @@ export default defineConfig({
 		'@stylistic/keyword-spacing': ['error', {
 			overrides: {
 				if: {
-					after: false,
+					after: false
 				},
 
 				for: {
-					after: false,
+					after: false
 				},
 
 				while: {
-					after: false,
+					after: false
 				},
 
 				catch: {
-					after: false,
-				},
-			},
+					after: false
+				}
+			}
 		}],
 
 		'@stylistic/padding-line-between-statements': ['error', {
 			blankLine: 'always',
 			prev: 'function',
-			next: '*',
+			next: '*'
 		}, {
 			blankLine: 'always',
 			prev: 'block-like',
-			next: '*',
+			next: '*'
 		}, {
 			blankLine: 'always',
 			prev: 'import',
-			next: 'block-like',
+			next: 'block-like'
 		}],
 
 		eqeqeq: 'error',
 		'func-names': ['error', 'never'],
 
 		'func-style': ['error', 'declaration', {
-			allowArrowFunctions: true,
+			allowArrowFunctions: true
 		}],
 
 		'prefer-const': 'error',
@@ -170,13 +164,13 @@ export default defineConfig({
 				'^\\.\\./?$',
 				'^\\./(?=.*/)(?!/?$)',
 				'^\\.(?!/?$)',
-				'^\\./?$',
-			]],
+				'^\\./?$'
+			]]
 		}],
 
 		'@stylistic/jsx-curly-brace-presence': ['error', {
 			props: 'never',
-			children: 'never',
+			children: 'never'
 		}],
 
 		'@stylistic/jsx-self-closing-comp': 'error',
@@ -184,12 +178,12 @@ export default defineConfig({
 		'@stylistic/jsx-equals-spacing': ['error', 'never'],
 
 		'@stylistic/jsx-tag-spacing': ['error', {
-			closingSlash: 'never',
+			closingSlash: 'never'
 		}],
 
 		'@stylistic/jsx-curly-newline': ['error', {
 			multiline: 'require',
-			singleline: 'forbid',
+			singleline: 'forbid'
 		}],
 
 		'@stylistic/jsx-first-prop-new-line': ['error', 'multiline'],
@@ -203,14 +197,15 @@ export default defineConfig({
 			arrow: 'parens-new-line',
 			condition: 'parens-new-line',
 			logical: 'parens-new-line',
-			prop: 'ignore',
+			prop: 'ignore'
 		}],
+
 		'newlines/enforce': [
 			'error',
 			{
 				'max-len': 80,
-				'semi': false
+				semi: false
 			}
 		]
-	},
+	}
 })

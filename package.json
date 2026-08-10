@@ -1,26 +1,28 @@
 {
   "name": "@adiwajshing/eslint-config",
-  "version": "2.0.0",
-  "main": "index.js",
+  "version": "3.0.0",
+  "main": "oxlint.config.ts",
   "type": "module",
+  "files": [
+    "oxlint.config.ts",
+    "oxlint-plugin-extras.js"
+  ],
   "scripts": {
-    "lint": "eslint",
+    "lint": "oxlint",
     "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@typescript-eslint/eslint-plugin": "^8.43.0",
-    "@typescript-eslint/parser": "^8.43.0",
+    "eslint": "^10.0.0",
     "eslint-plugin-import-newlines": "^2.0.0",
-    "eslint-plugin-simple-import-sort": "^13.0.0",
-    "eslint-plugin-unicorn": "^70.0.0",
-    "typescript-eslint": "^8.43.0"
+    "eslint-plugin-simple-import-sort": "^13.0.0"
   },
   "peerDependencies": {
-    "eslint": "*"
+    "oxlint": "*"
   },
   "devDependencies": {
-    "eslint": "^10.0.0",
-    "typescript": ">= 5"
+    "oxlint": "^1.77.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "typescript": "^7.0.2"
   }
 }
