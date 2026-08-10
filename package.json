@@ -1,5 +1,5 @@
 {
-	"name": "@adiwajshing/eslint-config",
+	"name": "@adiwajshing/oxlint-config",
 	"version": "3.0.0",
 	"files": [
 		"oxlint.config.ts",
