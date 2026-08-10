@@ -10,13 +10,10 @@ export default defineConfig({
 	bracketSpacing: true,
 	endOfLine: 'lf',
 	singleAttributePerLine: true,
+	arrowParens: 'avoid',
 	sortImports: {
 		newlinesBetween: false,
 		customGroups: [
-			{
-				groupName: 'react',
-				elementNamePattern: ['react', 'react-**'],
-			},
 			{
 				groupName: 'project',
 				elementNamePattern: [
@@ -30,7 +27,6 @@ export default defineConfig({
 			},
 		],
 		groups: [
-			'react',
 			['builtin', 'external'],
 			'project',
 			['parent', 'sibling', 'index'],

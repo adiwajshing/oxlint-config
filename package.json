@@ -6,7 +6,16 @@
 		"oxfmt.config.ts"
 	],
 	"type": "module",
-	"main": "oxlint.config.ts",
+	"exports": {
+		"./oxlint": {
+			"import": "./oxlint.config.ts",
+			"types": "./oxlint.config.ts"
+		},
+		"./oxfmt": {
+			"import": "./oxfmt.config.ts",
+			"types": "./oxfmt.config.ts"
+		}
+	},
 	"scripts": {
 		"format": "oxfmt .",
 		"format:check": "oxfmt --check .",
