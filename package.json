@@ -2,7 +2,7 @@
 	"name": "@adiwajshing/oxlint-config",
 	"version": "3.0.0",
 	"files": [
-		"oxlint.config.ts"
+		"oxlint.config.*"
 	],
 	"type": "module",
 	"exports": {
