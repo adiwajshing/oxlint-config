@@ -11,8 +11,8 @@
 		}
 	},
 	"scripts": {
-		"lint": "oxlint",
-		"lint:fix": "oxlint --fix"
+		"lint": "oxlint -c oxlint.config.mjs",
+		"lint:fix": "npm run lint -- --fix"
 	},
 	"dependencies": {
 		"@stylistic/eslint-plugin": "^5.10.0",
