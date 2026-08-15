@@ -1,12 +1,12 @@
 # Oxlint Config
 
-General Typescript lint and format rules I use, powered by
-[oxlint](https://oxc.rs) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+General Typescript lint and style rules I use, powered by
+[oxlint](https://oxc.rs/docs/guide/usage/linter.html).
 
 To use in your project:
 
 ```
-npm i git+https://github.com/adiwajshing/oxlint-config oxlint oxfmt --save-dev
+npm i git+https://github.com/adiwajshing/oxlint-config oxlint oxlint-tsgolint --save-dev
 ```
 
 To use the old `eslint` config, use the `eslint` branch:
@@ -30,23 +30,14 @@ export default defineConfig({
 })
 ```
 
-Run `npx oxlint` to lint and `npx oxfmt .` to format. The package scripts
-combine both: `npm run lint` checks lint and formatting, and `npm run lint:fix`
-applies available fixes and formats files.
-
-Oxfmt does not support config `extends`, so you can just re-define the config using this as a base in `oxfmt.config.ts`:
-
-``` ts
-import OxfmtConfig from '@adiwajshing/eslint-config/oxfmt'
-import { defineConfig } from 'oxfmt'
-
-export default defineConfig({ ...OxfmtConfig, ...yourOptions })
-```
+Run `npx oxlint` to lint. `npm run lint:fix` applies available fixes, including
+import sorting and supported stylistic fixes.
 
 ## Notes
 
-- Oxlint runs only native rules. Oxfmt handles formatting and import sorting.
-- `oxfmt.config.ts` uses tabs, 80-character line width, single quotes, no
+- Oxlint runs native rules and the `@stylistic` and `simple-import-sort` JS
+  plugins.
+- The config enforces tabs, an 80-character line width, single quotes, no
   semicolons, LF line endings, one JSX attribute per line, and the configured
   React/project import grouping.
 - This config was ported from ESLint to Oxlint using LLM support. The work was verified, and reviewed by myself.

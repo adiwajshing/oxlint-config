@@ -2,34 +2,30 @@
 	"name": "@adiwajshing/oxlint-config",
 	"version": "3.0.0",
 	"files": [
-		"oxlint.config.ts",
-		"oxfmt.config.ts"
+		"oxlint.config.ts"
 	],
 	"type": "module",
 	"exports": {
-		"./oxlint": {
+		".": {
 			"import": "./oxlint.config.ts",
 			"types": "./oxlint.config.ts"
-		},
-		"./oxfmt": {
-			"import": "./oxfmt.config.ts",
-			"types": "./oxfmt.config.ts"
 		}
 	},
 	"scripts": {
-		"format": "oxfmt .",
-		"format:check": "oxfmt --check .",
-		"lint": "oxlint && npm run format:check",
-		"lint:fix": "oxlint --fix && npm run format"
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix"
+	},
+	"dependencies": {
+		"@stylistic/eslint-plugin": "^5.10.0",
+		"eslint-plugin-simple-import-sort": "^14.0.0"
 	},
 	"devDependencies": {
-		"oxfmt": "^0.62.0",
 		"oxlint": "^1.77.0",
 		"oxlint-tsgolint": "^7.0.2001",
 		"typescript": "^7.0.2"
 	},
 	"peerDependencies": {
-		"oxfmt": "*",
-		"oxlint": "*"
+		"oxlint": "*",
+		"oxlint-tsgolint": "*"
 	}
 }
