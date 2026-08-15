@@ -7,8 +7,7 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"import": "./oxlint.config.ts",
-			"types": "./oxlint.config.ts"
+			"import": "./oxlint.config.mjs"
 		}
 	},
 	"scripts": {
